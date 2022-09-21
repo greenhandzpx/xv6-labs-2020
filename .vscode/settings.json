@@ -1,5 +1,15 @@
 {
     "files.associations": {
-        "user.h": "c"
+        "user.h": "c",
+        "types.h": "c",
+        "param.h": "c",
+        "*.tcc": "c",
+        "exception": "c",
+        "memory_resource": "c",
+        "iosfwd": "c",
+        "new": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "streambuf": "c"
     }
 }

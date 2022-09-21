@@ -12,6 +12,7 @@ static int loadseg(pde_t *pgdir, uint64 addr, struct inode *ip, uint offset, uin
 int
 exec(char *path, char **argv)
 {
+  // printf("hhh\n");
   char *s, *last;
   int i, off;
   uint64 argc, sz = 0, sp, ustack[MAXARG+1], stackbase;
@@ -68,8 +69,9 @@ exec(char *path, char **argv)
   // Use the second as the user stack.
   sz = PGROUNDUP(sz);
   uint64 sz1;
-  if((sz1 = uvmalloc(pagetable, sz, sz + 2*PGSIZE)) == 0)
-    goto bad;
+  if((sz1 = uvmalloc(pagetable, sz, sz + 2*PGSIZE)) == 0) {
+     goto bad;
+  }
   sz = sz1;
   uvmclear(pagetable, sz-2*PGSIZE);
   sp = sz;
@@ -77,14 +79,18 @@ exec(char *path, char **argv)
 
   // Push argument strings, prepare rest of stack in ustack.
   for(argc = 0; argv[argc]; argc++) {
-    if(argc >= MAXARG)
+    if(argc >= MAXARG) {
       goto bad;
+    }
+    // printf("%s\n", argv[argc]);
     sp -= strlen(argv[argc]) + 1;
     sp -= sp % 16; // riscv sp must be 16-byte aligned
-    if(sp < stackbase)
+    if(sp < stackbase) {
       goto bad;
-    if(copyout(pagetable, sp, argv[argc], strlen(argv[argc]) + 1) < 0)
+    }
+    if(copyout(pagetable, sp, argv[argc], strlen(argv[argc]) + 1) < 0) {
       goto bad;
+    }
     ustack[argc] = sp;
   }
   ustack[argc] = 0;
@@ -92,10 +98,12 @@ exec(char *path, char **argv)
   // push the array of argv[] pointers.
   sp -= (argc+1) * sizeof(uint64);
   sp -= sp % 16;
-  if(sp < stackbase)
+  if(sp < stackbase) {
     goto bad;
-  if(copyout(pagetable, sp, (char *)ustack, (argc+1)*sizeof(uint64)) < 0)
-    goto bad;
+  }
+  if(copyout(pagetable, sp, (char *)ustack, (argc+1)*sizeof(uint64)) < 0) {
+      goto bad;
+  }
 
   // arguments to user main(argc, argv)
   // argc is returned via the system call return
