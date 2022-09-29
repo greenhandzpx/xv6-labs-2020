@@ -30,17 +30,12 @@ int main(int argc, char* argv[]) {
         if (strcmp(exec_argv[argc-1], "\0") == 0) {
             break;
         }
-        // printf("gets: %s\n", exec_argv[argc-1]);
         if (fork() == 0) {
-            // printf("%s\n", exec_argv[1]);
-            // for(argc = 0; exec_argv[argc]; argc++) {
-            //     printf("%d %s\n", argc, exec_argv[argc]);
-            // }
-            int ret;
+            int ret = 0;
             if ((ret = exec(exec_argv[0], exec_argv)) < 0) {
                 printf("exec error\n");
             }
-            exit(0);
+            exit(ret);
         }
         wait(0);
     }
