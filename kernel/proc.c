@@ -277,6 +277,8 @@ fork(void)
 
   np->parent = p;
 
+  np->mask = p->mask;
+
   // copy saved user registers.
   *(np->trapframe) = *(p->trapframe);
 
@@ -294,6 +296,7 @@ fork(void)
   pid = np->pid;
 
   np->state = RUNNABLE;
+
 
   release(&np->lock);
 
@@ -692,4 +695,27 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+uint64 freefd(void)
+{
+  struct proc *p = myproc();
+  int res = NOFILE;
+  for (int i = 0; i < NOFILE; ++i) {
+    if (p->ofile[i]) {
+      --res;
+    }
+  }
+  return res;
+}
+
+uint64 nproc(void)
+{
+  uint64 res = 0;
+  for (int i = 0; i < NPROC; ++i) {
+    if (proc[i].state == UNUSED) {
+      ++res;
+    }
+  }
+  return res;
 }
