@@ -30,17 +30,11 @@ kinit()
 {
   // uint64 free_size = (PHYSTOP - (uint64)end) / NCPU;
   // uint64 start = (uint64)end;
-  // for (int i = 0; i < NCPU; ++i) {
-  //   char name[24];
-  //   snprintf(name, 24, "kemem_%d", i);
-  //   initlock(&kmems[i].lock, name);
-  //   if (i == NCPU - 1) {
-  //     freerange((void *)start, (void *)PHYSTOP);
-  //   } else {
-  //     freerange((void *)start, (void *)(start + free_size));
-  //   }
-  //   start += free_size;
-  // }
+  for (int i = 0; i < NCPU; ++i) {
+    char name[24];
+    snprintf(name, 24, "kemem_%d", i);
+    initlock(&kmems[i].lock, name);
+  }
   // initlock(&kmem.lock, "kmem");
   freerange(end, (void*)PHYSTOP);
 }
