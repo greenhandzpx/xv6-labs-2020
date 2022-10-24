@@ -119,12 +119,30 @@ bget(uint dev, uint blockno)
 
   acquire(&bcache.global_lock);
 
+  acquire(&bcache.lock[idx]);
+  // because we release the lock just now 
+  // we should check wether some other process has allocate a buf for this block again
+  for(b = bcache.hash_buckets[idx].next; b != &bcache.hash_buckets[idx]; b = b->next){
+    if(b->dev == dev && b->blockno == blockno){
+      b->refcnt++;
+      release(&bcache.lock[idx]);
+      release(&bcache.global_lock);
+      acquiresleep(&b->lock);
+      return b;
+    }
+  }
+  // now we can start to steal a block from other buckets
   for (int i = 0; i < NBUF; ++i){
     b = &bcache.buf[i];
     uint dst_idx = b->blockno % NBUCKETS;
-    acquire(&bcache.lock[dst_idx]);
+    // note that we should check wether the old and new are the same bucket or not
+    if (dst_idx != idx) {
+      acquire(&bcache.lock[dst_idx]);
+    }
     if (b->refcnt > 0) {
-      release(&bcache.lock[dst_idx]);
+      if (dst_idx != idx) {
+        release(&bcache.lock[dst_idx]);
+      }
       continue;
     }
     // update the buf information
@@ -133,10 +151,6 @@ bget(uint dev, uint blockno)
     b->valid = 0;
     b->refcnt = 1;
     // remove this buf from the old bucket and put it into the new bucket
-    // note that we should check wether the old and new are the same bucket or not
-    if (dst_idx != idx) {
-      acquire(&bcache.lock[idx]);
-    }
     b->next->prev = b->prev;
     b->prev->next = b->next;
     b->next = bcache.hash_buckets[idx].next;
@@ -144,9 +158,9 @@ bget(uint dev, uint blockno)
     bcache.hash_buckets[idx].next->prev = b;
     bcache.hash_buckets[idx].next = b;
     if (dst_idx != idx) {
-      release(&bcache.lock[idx]);
+      release(&bcache.lock[dst_idx]);
     }
-    release(&bcache.lock[dst_idx]);
+    release(&bcache.lock[idx]);
     release(&bcache.global_lock);
     acquiresleep(&b->lock);
     return b;
