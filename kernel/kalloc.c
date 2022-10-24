@@ -28,11 +28,19 @@ struct kmem kmems[NCPU];
 void
 kinit()
 {
-  for (int i = 0; i < NCPU; ++i) {
-    char name[24];
-    snprintf(name, 24, "kemem_%d", i);
-    initlock(&kmems[i].lock, name);
-  }
+  // uint64 free_size = (PHYSTOP - (uint64)end) / NCPU;
+  // uint64 start = (uint64)end;
+  // for (int i = 0; i < NCPU; ++i) {
+  //   char name[24];
+  //   snprintf(name, 24, "kemem_%d", i);
+  //   initlock(&kmems[i].lock, name);
+  //   if (i == NCPU - 1) {
+  //     freerange((void *)start, (void *)PHYSTOP);
+  //   } else {
+  //     freerange((void *)start, (void *)(start + free_size));
+  //   }
+  //   start += free_size;
+  // }
   // initlock(&kmem.lock, "kmem");
   freerange(end, (void*)PHYSTOP);
 }
@@ -85,8 +93,28 @@ kalloc(void)
   pop_off();
   acquire(&kmems[cpu_id].lock);
   r = kmems[cpu_id].freelist;
-  if(r)
+  if (r) {
     kmems[cpu_id].freelist = r->next;
+  } else {
+    // no enough free space
+    // try to steal from other cpu 
+    release(&kmems[cpu_id].lock);
+    for (int i = 0; i < NCPU; ++i) {
+      if (i == cpu_id) {
+        continue;
+      }
+      acquire(&kmems[i].lock);
+      r = kmems[i].freelist;
+      if (r) {
+        kmems[i].freelist = r->next;
+        release(&kmems[i].lock);
+        break;
+      } else {
+        release(&kmems[i].lock);
+      }
+    }
+    acquire(&kmems[cpu_id].lock);
+  }
   release(&kmems[cpu_id].lock);
 
   if(r)
