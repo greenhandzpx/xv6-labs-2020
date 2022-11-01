@@ -75,13 +75,10 @@ binit(void)
     char name[24];
     snprintf(name, 24, "bcache_%d", i);
     initlock(&bcache.lock[i], name);
-
     // Create linked list of buffers
     bcache.hash_buckets[i].prev = &bcache.hash_buckets[i];
     bcache.hash_buckets[i].next = &bcache.hash_buckets[i];
-
   }
-
   // when init, just allocate all bufs to one bucket
   for(b = bcache.buf; b < bcache.buf+NBUF; b++){
     b->next = bcache.hash_buckets[0].next;
@@ -89,8 +86,6 @@ binit(void)
     initsleeplock(&b->lock, "buffer");
     bcache.hash_buckets[0].next->prev = b;
     bcache.hash_buckets[0].next = b;
-    // bcache.head.next->prev = b;
-    // bcache.head.next = b;
   }
 }
 
@@ -100,9 +95,7 @@ bget(uint dev, uint blockno)
   struct buf *b;
 
   uint idx = blockno % NBUCKETS;
-
   acquire(&bcache.lock[idx]);
-
   // Is the block already cached?
   for(b = bcache.hash_buckets[idx].next; b != &bcache.hash_buckets[idx]; b = b->next){
     if(b->dev == dev && b->blockno == blockno){
@@ -112,13 +105,10 @@ bget(uint dev, uint blockno)
       return b;
     }
   }
-
   // Not cached.
   // Recycle the least recently used (LRU) unused buffer.
   release(&bcache.lock[idx]);
-
   acquire(&bcache.global_lock);
-
   acquire(&bcache.lock[idx]);
   // because we release the lock just now 
   // we should check wether some other process has allocate a buf for this block again
@@ -165,16 +155,6 @@ bget(uint dev, uint blockno)
     acquiresleep(&b->lock);
     return b;
   }
-  // for(b = bcache.hash_buckets[idx].prev; b != &bcache.hash_buckets[idx]; b = b->prev){
-  //   if (b->refcnt == 0) {
-  //     b->dev = dev;
-  //     b->blockno = blockno;
-  //     b->valid = 0;
-  //     b->refcnt = 1;
-  //     release(&bcache.lock[idx]);
-  //     acquiresleep(&b->lock);
-  //     return b;
-  // }
   panic("bget: no buffers");
 }
 // Look through buffer cache for block on device dev.
@@ -250,7 +230,6 @@ brelse(struct buf *b)
 
   acquire(&bcache.lock[idx]);  
   b->refcnt--;
-  b->timestamp = ticks;
 
   if (b->refcnt == 0) {
     // no one is waiting for it.

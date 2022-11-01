@@ -9,6 +9,6 @@ struct buf {
   struct buf *next;
   uchar data[BSIZE];
 
-  uint timestamp;
+  // uint timestamp;
 };
 
