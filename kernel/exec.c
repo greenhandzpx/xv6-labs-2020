@@ -9,6 +9,41 @@
 
 static int loadseg(pde_t *pgdir, uint64 addr, struct inode *ip, uint offset, uint sz);
 
+
+static void
+vmprint_handler(pagetable_t pgtbl, int level)
+{
+  if (level > 3) {
+    return;
+  } 
+  for(int i = 0; i < 512; i++){
+    pte_t pte = pgtbl[i];
+    if((pte & PTE_V) /*&& (pte & (PTE_R|PTE_W|PTE_X)) == 0*/){
+      // this PTE points to a lower-level page table.
+      uint64 child = PTE2PA(pte);
+      for (int k = 0; k < level; ++k) {
+        printf("||");
+        if (k != level - 1) {
+          printf(" ");
+        }
+      }
+      printf("%d: pte %p pa %p\n", i, pte, child);
+      vmprint_handler((pagetable_t)child, level + 1);
+    // } else if(pte & PTE_V){
+    //   panic("freewalk: leaf");
+    }
+  }
+}
+
+void 
+vmprint(pagetable_t pgtbl) 
+{
+  printf("page table %p\n", pgtbl);
+  vmprint_handler(pgtbl, 1);
+}
+
+
+
 int
 exec(char *path, char **argv)
 {
@@ -122,6 +157,10 @@ exec(char *path, char **argv)
   p->trapframe->epc = elf.entry;  // initial program counter = main
   p->trapframe->sp = sp; // initial stack pointer
   proc_freepagetable(oldpagetable, oldsz);
+
+  if (p->pid == 1) {
+    vmprint(pagetable);
+  }
 
   return argc; // this ends up in a0, the first argument to main(argc, argv)
 
