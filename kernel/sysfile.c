@@ -446,6 +446,9 @@ sys_exec(void)
   for(i = 0; i < NELEM(argv) && argv[i] != 0; i++)
     kfree(argv[i]);
 
+  // if (ret < 0) {
+  //   printf("sys exec: ret %d\n", ret);
+  // } 
   return ret;
 
  bad:

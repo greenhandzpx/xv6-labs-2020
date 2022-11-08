@@ -349,6 +349,11 @@ uvmalloc_new(pagetable_t pagetable, uint64 oldsz, uint64 newsz, pagetable_t kern
 
   oldsz = PGROUNDUP(oldsz);
   for(a = oldsz; a < newsz; a += PGSIZE){
+    // map kernel page table
+    if (a >= PLIC) {
+      printf("user va too big");
+      return 0;
+    }
     mem = kalloc();
     if(mem == 0){
       uvmdealloc_new(pagetable, a, oldsz, kernel_pagetable);
@@ -360,10 +365,6 @@ uvmalloc_new(pagetable_t pagetable, uint64 oldsz, uint64 newsz, pagetable_t kern
       uvmdealloc_new(pagetable, a, oldsz, kernel_pagetable);
       return 0;
     }
-    // map kernel page table
-    if (a >= PLIC) {
-      panic("user va too big");
-    }
     if(mappages(kernel_pagetable, a, PGSIZE, (uint64)mem, PTE_W|PTE_X|PTE_R) != 0){
       kfree(mem);
       uvmdealloc_new(pagetable, a, oldsz, kernel_pagetable);
@@ -372,6 +373,21 @@ uvmalloc_new(pagetable_t pagetable, uint64 oldsz, uint64 newsz, pagetable_t kern
   }
   return newsz;
 }
+
+
+uint64
+copy_uvm_to_kpgtbl(pagetable_t upgtbl, uint64 start_va, uint64 end_va, pagetable_t kpgtbl)
+{
+  uint64 a;
+  for (a = start_va; a < end_va; a += PGSIZE) {
+    uint64 paddr = walkaddr(upgtbl, a);
+    if (mappages(kpgtbl, a, PGSIZE, paddr, PTE_W|PTE_X|PTE_R) != 0) {
+      return 0;
+    } 
+  }
+  return end_va;
+}
+
 
 
 // Deallocate user pages to bring the process size from oldsz to

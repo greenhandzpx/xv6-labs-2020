@@ -73,9 +73,9 @@ exec(char *path, char **argv)
   if((pagetable = proc_pagetable(p)) == 0)
     goto bad;
 
-  // unmap all old user pages in kernel page table
-  uint64 npage = PGROUNDUP(p->sz) / PGSIZE;
-  uvmunmap(p->kernel_pagetable, 0, npage, 0);
+  // // unmap all old user pages in kernel page table
+  // uint64 npage = PGROUNDUP(p->sz) / PGSIZE;
+  // uvmunmap(p->kernel_pagetable, 0, npage, 0);
 
   // Load program into memory.
   for(i=0, off=elf.phoff; i<elf.phnum; i++, off+=sizeof(ph)){
@@ -88,8 +88,8 @@ exec(char *path, char **argv)
     if(ph.vaddr + ph.memsz < ph.vaddr)
       goto bad;
     uint64 sz1;
-    // if((sz1 = uvmalloc(pagetable, sz, ph.vaddr + ph.memsz)) == 0)
-    if((sz1 = uvmalloc_new(pagetable, sz, ph.vaddr + ph.memsz, myproc()->kernel_pagetable)) == 0)
+    if((sz1 = uvmalloc(pagetable, sz, ph.vaddr + ph.memsz)) == 0)
+    // if((sz1 = uvmalloc_new(pagetable, sz, ph.vaddr + ph.memsz, myproc()->kernel_pagetable)) == 0)
       goto bad;
     sz = sz1;
     if(ph.vaddr % PGSIZE != 0)
@@ -109,8 +109,8 @@ exec(char *path, char **argv)
   // Use the second as the user stack.
   sz = PGROUNDUP(sz);
   uint64 sz1;
-  // if((sz1 = uvmalloc(pagetable, sz, sz + 2*PGSIZE)) == 0)
-  if((sz1 = uvmalloc_new(pagetable, sz, sz + 2*PGSIZE, myproc()->kernel_pagetable)) == 0)
+  if((sz1 = uvmalloc(pagetable, sz, sz + 2*PGSIZE)) == 0)
+  // if((sz1 = uvmalloc_new(pagetable, sz, sz + 2*PGSIZE, myproc()->kernel_pagetable)) == 0)
     goto bad;
   sz = sz1;
   uvmclear(pagetable, sz-2*PGSIZE);
@@ -123,6 +123,7 @@ exec(char *path, char **argv)
       goto bad;
     sp -= strlen(argv[argc]) + 1;
     sp -= sp % 16; // riscv sp must be 16-byte aligned
+    // printf("exec.c1: argc %d, sp %x, stackbase %x\n", argc, sp, stackbase);
     if(sp < stackbase)
       goto bad;
     if(copyout(pagetable, sp, argv[argc], strlen(argv[argc]) + 1) < 0)
@@ -150,6 +151,14 @@ exec(char *path, char **argv)
       last = s+1;
   safestrcpy(p->name, last, sizeof(p->name));
     
+  // unmap all old user pages in kernel page table
+  uint64 npage = PGROUNDUP(oldsz) / PGSIZE;
+  uvmunmap(p->kernel_pagetable, 0, npage, 0);
+  // map new user pages in kernel page table
+  if (copy_uvm_to_kpgtbl(pagetable, 0, sz, myproc()->kernel_pagetable) == 0) {
+    panic("map user pages fail");
+  }
+
   // Commit to the user image.
   oldpagetable = p->pagetable;
   p->pagetable = pagetable;
@@ -165,8 +174,9 @@ exec(char *path, char **argv)
   return argc; // this ends up in a0, the first argument to main(argc, argv)
 
  bad:
-  if(pagetable)
+  if(pagetable) {
     proc_freepagetable(pagetable, sz);
+  }
   if(ip){
     iunlockput(ip);
     end_op();
