@@ -374,9 +374,9 @@ uvmalloc_new(pagetable_t pagetable, uint64 oldsz, uint64 newsz, pagetable_t kern
   return newsz;
 }
 
-
+// map a user va range in kernel page table
 uint64
-copy_uvm_to_kpgtbl(pagetable_t upgtbl, uint64 start_va, uint64 end_va, pagetable_t kpgtbl)
+map_uvm_in_kpgtbl(pagetable_t upgtbl, uint64 start_va, uint64 end_va, pagetable_t kpgtbl)
 {
   uint64 a;
   for (a = start_va; a < end_va; a += PGSIZE) {

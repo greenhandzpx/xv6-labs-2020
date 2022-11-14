@@ -155,7 +155,7 @@ exec(char *path, char **argv)
   uint64 npage = PGROUNDUP(oldsz) / PGSIZE;
   uvmunmap(p->kernel_pagetable, 0, npage, 0);
   // map new user pages in kernel page table
-  if (copy_uvm_to_kpgtbl(pagetable, 0, sz, myproc()->kernel_pagetable) == 0) {
+  if (map_uvm_in_kpgtbl(pagetable, 0, sz, myproc()->kernel_pagetable) == 0) {
     panic("map user pages fail");
   }
 

@@ -173,7 +173,7 @@ uint64          uvmalloc(pagetable_t, uint64, uint64);
 uint64          uvmdealloc(pagetable_t, uint64, uint64);
 
 
-uint64          copy_uvm_to_kpgtbl(pagetable_t upgtbl, uint64 start_va, uint64 end_va, pagetable_t kpgtbl);
+uint64          map_uvm_in_kpgtbl(pagetable_t upgtbl, uint64 start_va, uint64 end_va, pagetable_t kpgtbl);
 void            uvminit_new(pagetable_t, uchar *, uint, pagetable_t);
 uint64          uvmalloc_new(pagetable_t, uint64, uint64, pagetable_t);
 uint64          uvmdealloc_new(pagetable_t, uint64, uint64, pagetable_t);
