@@ -1,0 +1,12 @@
+下面的代码中，线程t1和t2同时执行到e->next=n, 此时有两个entry同时指向原链表头结点，接着无论是t1还是t2先执行e->next=n,最终都会丢失一个entry
+```
+static void 
+insert(int key, int value, struct entry **p, struct entry *n)
+{
+  struct entry *e = malloc(sizeof(struct entry));
+  e->key = key;
+  e->value = value;
+  e->next = n;
+  *p = e;
+}
+```
