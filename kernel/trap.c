@@ -68,9 +68,38 @@ usertrap(void)
   } else if((which_dev = devintr()) != 0){
     // ok
   } else {
-    printf("usertrap(): unexpected scause %p pid=%d\n", r_scause(), p->pid);
-    printf("            sepc=%p stval=%p\n", r_sepc(), r_stval());
-    p->killed = 1;
+    if (r_scause() == 13 || r_scause() == 15) {
+      // page fault(because of lazy allocation)
+      uint64 va = r_stval();
+      // printf("page fault va %p\n", va);
+      if (va >= myproc()->sz || va < myproc()->trapframe->sp) {
+        printf("va %p out of bound\n", va);
+        printf("proc sz %p\n", myproc()->sz);
+        printf("proc kstack %p\n", myproc()->kstack);
+        goto err;
+      }
+      // printf("page fault: va %x\n", va);
+      uint64 va_aligned = PGROUNDDOWN(va);
+
+      char *mem = kalloc();
+      if(mem == 0){
+        printf("sz %p\n", myproc()->sz);
+        printf("trap: kalloc failed\n");
+        goto err;
+      }
+      memset(mem, 0, PGSIZE);
+      if(mappages(myproc()->pagetable, va_aligned, PGSIZE, (uint64)mem, PTE_W|PTE_X|PTE_R|PTE_U) != 0){
+        kfree(mem);
+        printf("trap: map pages failed");
+        goto err;
+      }
+
+    } else {
+err:
+      printf("usertrap(): unexpected scause %p pid=%d\n", r_scause(), p->pid);
+      printf("            sepc=%p stval=%p\n", r_sepc(), r_stval());
+      p->killed = 1;
+    }
   }
 
   if(p->killed)

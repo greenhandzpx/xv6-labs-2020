@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "semaphore": "c",
+        "stop_token": "c",
+        "proc.h": "c",
+        "random": "c",
+        "limits": "c",
+        "algorithm": "c",
+        "mutex": "c",
+        "*.tcc": "c",
+        "ratio": "c",
+        "sleeplock.h": "c"
+    }
+}
