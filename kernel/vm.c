@@ -15,6 +15,10 @@ extern char etext[];  // kernel.ld sets this to end of kernel code.
 
 extern char trampoline[]; // trampoline.S
 
+
+extern int ref_cnt[PHYSTOP >> 12];
+extern struct spinlock ref_cnt_lock;
+
 // Make a direct-map page table for the kernel.
 pagetable_t
 kvmmake(void)
@@ -303,7 +307,7 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
   pte_t *pte;
   uint64 pa, i;
   uint flags;
-  char *mem;
+  // char *mem;
 
   for(i = 0; i < sz; i += PGSIZE){
     if((pte = walk(old, i, 0)) == 0)
@@ -311,12 +315,17 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
     if((*pte & PTE_V) == 0)
       panic("uvmcopy: page not present");
     pa = PTE2PA(*pte);
+    acquire(&ref_cnt_lock);
+    ref_cnt[pa / PGSIZE]++;	// reference count ++;
+    release(&ref_cnt_lock);
+    *pte &= ~PTE_W;   // both child and parent can not write into this page
+    *pte |= PTE_COW;  // flag the page as copy on write
     flags = PTE_FLAGS(*pte);
-    if((mem = kalloc()) == 0)
-      goto err;
-    memmove(mem, (char*)pa, PGSIZE);
-    if(mappages(new, i, PGSIZE, (uint64)mem, flags) != 0){
-      kfree(mem);
+    // if((mem = kalloc()) == 0)
+    //   goto err;
+    // memmove(mem, (char*)pa, PGSIZE);
+    if(mappages(new, i, PGSIZE, pa, flags) != 0){
+      // kfree(mem);
       goto err;
     }
   }
@@ -353,6 +362,27 @@ copyout(pagetable_t pagetable, uint64 dstva, char *src, uint64 len)
     pa0 = walkaddr(pagetable, va0);
     if(pa0 == 0)
       return -1;
+
+	  pte_t *pte = walk(pagetable, va0, 0);
+    // lab cow
+    if (*pte & PTE_COW)
+    {
+      // cow page
+      // allocate a new page
+      uint64 mem = (uint64) kalloc(); // newly allocated physical address
+
+      if (mem == 0) {
+        // alloc failed
+        return -1;
+      }
+      memmove((char*)mem, (char*)pa0, PGSIZE); // copy the old page to the new page
+      uint flags = PTE_FLAGS(*pte);
+      uvmunmap(pagetable, va0, 1, 1);
+      *pte = PA2PTE(mem) | flags | PTE_W;
+      *pte &= ~PTE_COW;
+      pa0 = mem;
+    } 
+
     n = PGSIZE - (dstva - va0);
     if(n > len)
       n = len;
