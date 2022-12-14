@@ -462,13 +462,16 @@ itrunc(struct inode *ip)
     ip->addrs[NDIRECT] = 0;
   }
 
-  // lab fs par1
+  // lab fs part1
   struct buf *bp2;
   uint* a2;
   if(ip->addrs[NDIRECT+1]){
     bp = bread(ip->dev, ip->addrs[NDIRECT+1]);
     a = (uint*)bp->data;
     for(j = 0; j < NINDIRECT; j++){
+      if (!a[j]) {
+        continue;
+      }
       bp2 = bread(ip->dev, a[j]);
       a2 = (uint*)bp2->data;
       for(i = 0; i < NINDIRECT; i++){

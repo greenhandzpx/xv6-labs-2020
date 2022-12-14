@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Dec 14 16:14:37 2022
+# Make data base, printed on Wed Dec 14 16:42:17 2022
 
 # Variables
 
@@ -34,6 +34,7 @@ VSCODE_CWD = /mnt/g/vscode/Microsoft VS Code
 MAKE_COMMAND := make
 # environment
 VSCODE_HANDLES_SIGPIPE = true
+ 
 # environment
 HISTFILE = /home/greenhandzpx/.zsh_history
 # automatic
@@ -50,6 +51,7 @@ PWD = /home/greenhandzpx/CodeField/c_code/xv6-labs-2020-private
 %D = $(patsubst %/,%,$(dir $%))
 # makefile (from 'conf/lab.mk', line 1)
 LAB = fs
+ 
 # environment
 OLDPWD = /mnt/g/vscode/Microsoft VS Code
 # automatic
@@ -82,6 +84,7 @@ MFLAGS = -pqrR
 UPSTREAM := 2021
 # environment
 HISTSIZE = 10000
+ 
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
@@ -89,7 +92,7 @@ P9K_SSH = 0
 # environment
 GPG_KEY = 821F4DB2D9DBFDCA5B1AFEBC3B90F0ED66840854
 # makefile (from 'user/zombie.d', line 1)
-MAKEFILE_LIST := Makefile conf/lab.mk kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/kalloc.d kernel/log.d kernel/main.d kernel/pipe.d kernel/plic.d kernel/printf.d kernel/proc.d kernel/sleeplock.d kernel/spinlock.d kernel/start.d kernel/string.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/trap.d kernel/uart.d kernel/virtio_disk.d kernel/vm.d user/cat.d user/cowtest.d user/echo.d user/forktest.d user/grep.d user/grind.d user/init.d user/initcode.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/printf.d user/rm.d user/sh.d user/stressfs.d user/ulib.d user/umalloc.d user/usertests.d user/usys.d user/wc.d user/zombie.d
+MAKEFILE_LIST := Makefile conf/lab.mk kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/kalloc.d kernel/log.d kernel/main.d kernel/pipe.d kernel/plic.d kernel/printf.d kernel/proc.d kernel/sleeplock.d kernel/spinlock.d kernel/start.d kernel/string.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/trap.d kernel/uart.d kernel/virtio_disk.d kernel/vm.d user/bigfile.d user/cat.d user/echo.d user/forktest.d user/grep.d user/grind.d user/init.d user/initcode.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/printf.d user/rm.d user/sh.d user/stressfs.d user/symlinktest.d user/ulib.d user/umalloc.d user/usertests.d user/usys.d user/wc.d user/zombie.d
 # environment
 CONDA_SHLVL = 1
 # automatic
@@ -114,6 +117,7 @@ P9K_TTY = old
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
+ 
 # makefile (from 'Makefile', line 11)
 OBJS = $K/entry.o $K/kalloc.o $K/string.o $K/main.o $K/vm.o $K/proc.o $K/swtch.o $K/trampoline.o $K/trap.o $K/syscall.o $K/sysproc.o $K/bio.o $K/fs.o $K/log.o $K/sleeplock.o $K/file.o $K/pipe.o $K/exec.o $K/sysfile.o $K/kernelvec.o $K/plic.o $K/virtio_disk.o
 # makefile (from 'Makefile', line 9)
@@ -146,6 +150,7 @@ OBJS_KCSAN = $K/start.o $K/console.o $K/printf.o $K/uart.o $K/spinlock.o
 WT_SESSION = 955cd861-5d9b-4a20-94f1-a1648a5d0fe5
 # automatic
 ?F = $(notdir $?)
+ 
 # environment
 NAME = Code
 # environment
@@ -181,7 +186,7 @@ DEBUGINFOD_URLS = https://debuginfod.archlinux.org
 # environment
 _ = /usr/sbin/make
 # makefile (from 'Makefile', line 114)
-CFLAGS = -Wall -Werror -O -fno-omit-frame-pointer -ggdb $(XCFLAGS) -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector) -fno-pie -no-pie
+CFLAGS = -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb $(XCFLAGS) -MD -mcmodel=medany -ffreestanding -fno-common -nostdlib -mno-relax -I. $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector) -fno-pie -no-pie
 # environment
 _CE_M = 
 # environment
@@ -190,6 +195,7 @@ VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-06e73dd5-90d8-41df-9dd9-431714d98cd8.sock
 CPUS := 1
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+ 
 # environment
 HOME = /home/greenhandzpx
 # makefile (from 'Makefile', line 69)
@@ -229,7 +235,7 @@ CONDA_EXE = /home/greenhandzpx/miniconda3/bin/conda
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
-# Load=108/1024=11%, Rehash=0, Collisions=1/464=0%
+# Load=108/1024=11%, Rehash=0, Collisions=1/466=0%
 
 # Pattern-specific Variable Values
 
@@ -238,10 +244,10 @@ _CE_CONDA =
 # Directories
 
 # kernel (device 2080, inode 701169): 101 files, no impossibilities.
-# . (device 2080, inode 701093): 22 files, no impossibilities.
-# user (device 2080, inode 701221): 142 files, no impossibilities.
+# . (device 2080, inode 701093): 23 files, no impossibilities.
+# user (device 2080, inode 701221): 148 files, no impossibilities.
 
-# 265 files, no impossibilities in 3 directories.
+# 272 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -272,15 +278,14 @@ user/wc.c:
 # Not a target:
 kernel/virtio_disk.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.266853896
+#  Last modified 2022-12-14 16:39:31.121407775
 #  File has been updated.
 #  Successfully updated.
 
- 
 # Not a target:
 user/grind.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:15.726853915
+#  Last modified 2022-12-14 16:39:33.551407789
 #  File has been updated.
 #  Successfully updated.
 
@@ -328,7 +333,7 @@ kernel/printf.o: kernel/printf.c /usr/lib/gcc/riscv64-linux-gnu/12.2.0/include/s
 # Not a target:
 user/rm.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.736853909
+#  Last modified 2022-12-14 16:39:32.751407784
 #  File has been updated.
 #  Successfully updated.
 
@@ -352,7 +357,7 @@ user/usertests.o: user/usertests.c kernel/param.h kernel/types.h kernel/stat.h u
 # Not a target:
 kernel/bio.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.656853892
+#  Last modified 2022-12-14 16:39:30.411407772
 #  File has been updated.
 #  Successfully updated.
 
@@ -378,10 +383,15 @@ kernel/main.c:
 #  Modification time never checked.
 #  File has not been updated.
 
+user/bigfile.o: user/bigfile.c kernel/types.h kernel/stat.h user/user.h kernel/fcntl.h kernel/fs.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # Not a target:
 user/grep.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.276853907
+#  Last modified 2022-12-14 16:39:32.351407782
 #  File has been updated.
 #  Successfully updated.
 
@@ -412,7 +422,7 @@ user/forktest.c:
 # Not a target:
 user/ln.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.486853908
+#  Last modified 2022-12-14 16:39:32.511407783
 #  File has been updated.
 #  Successfully updated.
 
@@ -434,14 +444,20 @@ kernel/sysfile.o: kernel/sysfile.c kernel/types.h kernel/riscv.h kernel/defs.h k
 # Not a target:
 kernel/exec.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.036853895
+#  Last modified 2022-12-14 16:39:30.861407774
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
+user/symlinktest.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 user/usertests.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:15.586853914
+#  Last modified 2022-12-14 16:39:33.411407788
 #  File has been updated.
 #  Successfully updated.
 
@@ -458,6 +474,7 @@ user/ln.c:
 #  File has not been updated.
 
 kernel/console.o: kernel/console.c /usr/lib/gcc/riscv64-linux-gnu/12.2.0/include/stdarg.h kernel/types.h kernel/param.h kernel/spinlock.h kernel/sleeplock.h kernel/fs.h kernel/file.h kernel/memlayout.h kernel/riscv.h kernel/defs.h kernel/proc.h
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -476,7 +493,7 @@ kernel/uart.c:
 # Not a target:
 user/forktest.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.206853907
+#  Last modified 2022-12-14 16:39:32.281407782
 #  File has been updated.
 #  Successfully updated.
 
@@ -554,20 +571,19 @@ user/_grep:
 user/sh.o: user/sh.c kernel/types.h user/user.h kernel/fcntl.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
- 
 #  File has not been updated.
 
 # Not a target:
 user/ls.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.606853909
+#  Last modified 2022-12-14 16:39:32.581407784
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-14 16:09:22.151397814
+#  Last modified 2022-12-14 16:34:09.481406004
 #  File has been updated.
 #  Successfully updated.
 
@@ -583,21 +599,28 @@ kernel/vm.o: kernel/vm.c kernel/param.h kernel/types.h kernel/memlayout.h kernel
 # Not a target:
 kernel/sleeplock.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.866853894
+#  Last modified 2022-12-14 16:39:30.681407773
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 user/kill.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.406853908
+#  Last modified 2022-12-14 16:39:32.461407783
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/log.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.836853893
+#  Last modified 2022-12-14 16:39:30.641407773
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+user/bigfile.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-12-14 16:39:33.83140779
 #  File has been updated.
 #  Successfully updated.
 
@@ -616,7 +639,7 @@ kernel/exec.c:
 # Not a target:
 kernel/printf.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.426853897
+#  Last modified 2022-12-14 16:39:31.261407776
 #  File has been updated.
 #  Successfully updated.
 
@@ -642,7 +665,7 @@ kernel/plic.c:
 # Not a target:
 kernel/proc.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.416853891
+#  Last modified 2022-12-14 16:39:30.18140777
 #  File has been updated.
 #  Successfully updated.
 
@@ -678,7 +701,7 @@ user/ln.o: user/ln.c kernel/types.h kernel/stat.h user/user.h
 # Not a target:
 user/umalloc.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.076853906
+#  Last modified 2022-12-14 16:39:32.111407781
 #  File has been updated.
 #  Successfully updated.
 
@@ -711,7 +734,7 @@ kernel/log.c:
 # Not a target:
 kernel/vm.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.21685389
+#  Last modified 2022-12-14 16:39:30.05140777
 #  File has been updated.
 #  Successfully updated.
 
@@ -733,8 +756,9 @@ user/rm.c:
 # Not a target:
 kernel/uart.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.476853897
+#  Last modified 2022-12-14 16:39:31.311407777
 #  File has been updated.
+ 
 #  Successfully updated.
 
 user/ls.o: user/ls.c kernel/types.h kernel/stat.h user/user.h kernel/fs.h
@@ -751,11 +775,6 @@ user/usys.o: user/usys.S user/usys.S kernel/syscall.h
 
 # Not a target:
 kernel/start.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-user/cowtest.o: user/cowtest.c kernel/types.h kernel/memlayout.h user/user.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -842,7 +861,7 @@ user/ls.c:
 # Not a target:
 user/stressfs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.986853911
+#  Last modified 2022-12-14 16:39:32.951407786
 #  File has been updated.
 #  Successfully updated.
 
@@ -855,8 +874,7 @@ kernel/sysfile.c:
 # Not a target:
 kernel/string.d:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-12-11 19:57:10.986853889
+#  Last modified 2022-12-14 16:39:29.911407769
 #  File has been updated.
 #  Successfully updated.
 
@@ -901,7 +919,7 @@ kernel/pipe.c:
 # Not a target:
 kernel/sysproc.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.606853892
+#  Last modified 2022-12-14 16:39:30.361407771
 #  File has been updated.
 #  Successfully updated.
 
@@ -915,13 +933,6 @@ user/printf.o: user/printf.c kernel/types.h kernel/stat.h user/user.h /usr/lib/g
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-
-# Not a target:
-user/cowtest.d:
-#  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:15.966853916
-#  File has been updated.
-#  Successfully updated.
 
 myapi.key:
 #  Implicit rule search has not been done.
@@ -976,6 +987,11 @@ user/_ls:
 #  Modification time never checked.
 #  File has not been updated.
 
+user/symlinktest.o: user/symlinktest.c kernel/param.h kernel/types.h kernel/stat.h kernel/riscv.h kernel/fcntl.h kernel/spinlock.h kernel/sleeplock.h kernel/fs.h kernel/file.h user/user.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # Not a target:
 kernel/spinlock.h:
 #  Implicit rule search has not been done.
@@ -994,14 +1010,14 @@ kernel/kalloc.o: kernel/kalloc.c kernel/types.h kernel/param.h kernel/memlayout.
 # Not a target:
 user/usys.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:13.976853905
+#  Last modified 2022-12-14 16:39:32.01140778
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/kalloc.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:10.916853888
+#  Last modified 2022-12-14 16:39:29.851407768
 #  File has been updated.
 #  Successfully updated.
 
@@ -1031,7 +1047,7 @@ kernel/bio.c:
 # Not a target:
 kernel/fs.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.766853893
+#  Last modified 2022-12-14 16:39:30.561407772
 #  File has been updated.
 #  Successfully updated.
 
@@ -1050,7 +1066,7 @@ user/_symlinktest:
 # Not a target:
 user/echo.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.156853906
+#  Last modified 2022-12-14 16:39:32.221407782
 #  File has been updated.
 #  Successfully updated.
 
@@ -1088,7 +1104,7 @@ kernel/trampoline.o:
 # Not a target:
 user/cat.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.106853906
+#  Last modified 2022-12-14 16:39:32.151407781
 #  File has been updated.
 #  Successfully updated.
 
@@ -1119,7 +1135,8 @@ kernel/vm.c:
 # Not a target:
 kernel/trap.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.496853892
+ 
+#  Last modified 2022-12-14 16:39:30.251407771
 #  File has been updated.
 #  Successfully updated.
 
@@ -1131,14 +1148,14 @@ user/stressfs.o: user/stressfs.c kernel/types.h kernel/stat.h user/user.h kernel
 # Not a target:
 user/init.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.336853907
+#  Last modified 2022-12-14 16:39:32.411407783
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 user/ulib.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:13.946853905
+#  Last modified 2022-12-14 16:39:31.96140778
 #  File has been updated.
 #  Successfully updated.
 
@@ -1157,15 +1174,14 @@ user/usys.pl:
 # Not a target:
 user/zombie.d:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-12-11 19:57:15.876853916
+#  Last modified 2022-12-14 16:39:33.70140779
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/pipe.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.976853894
+#  Last modified 2022-12-14 16:39:30.801407774
 #  File has been updated.
 #  Successfully updated.
 
@@ -1178,7 +1194,7 @@ kernel/fs.c:
 # Not a target:
 kernel/file.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.926853894
+#  Last modified 2022-12-14 16:39:30.751407773
 #  File has been updated.
 #  Successfully updated.
 
@@ -1286,7 +1302,7 @@ mkfs/mkfs.c:
 # Not a target:
 kernel/spinlock.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.526853897
+#  Last modified 2022-12-14 16:39:31.351407777
 #  File has been updated.
 #  Successfully updated.
 
@@ -1327,21 +1343,21 @@ user/_wc:
 # Not a target:
 user/initcode.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.546853897
+#  Last modified 2022-12-14 16:39:31.381407777
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 kernel/plic.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.196853895
+#  Last modified 2022-12-14 16:39:31.051407775
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 user/printf.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.036853906
+#  Last modified 2022-12-14 16:39:32.061407781
 #  File has been updated.
 #  Successfully updated.
 
@@ -1370,7 +1386,7 @@ user/_rm:
 # Not a target:
 kernel/sysfile.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.146853895
+#  Last modified 2022-12-14 16:39:31.001407775
 #  File has been updated.
 #  Successfully updated.
 
@@ -1390,7 +1406,7 @@ user/_sh:
 # Not a target:
 kernel/syscall.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.556853892
+#  Last modified 2022-12-14 16:39:30.301407771
 #  File has been updated.
 #  Successfully updated.
 
@@ -1404,6 +1420,12 @@ kernel/kernel: kernel/entry.o kernel/kalloc.o kernel/string.o kernel/main.o kern
 	$(OBJDUMP) -t $K/kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > $K/kernel.sym
 
 user/umalloc.o: user/umalloc.c kernel/types.h kernel/stat.h user/user.h kernel/param.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/bigfile.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1423,9 +1445,10 @@ kernel/defs.h:
 #  File has not been updated.
 
 # Not a target:
+ 
 kernel/start.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.316853896
+#  Last modified 2022-12-14 16:39:31.151407776
 #  File has been updated.
 #  Successfully updated.
 
@@ -1440,7 +1463,6 @@ user/kill.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 user/echo.c:
@@ -1452,6 +1474,13 @@ user/grep.o: user/grep.c kernel/types.h kernel/stat.h user/user.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+# Not a target:
+user/symlinktest.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-12-14 16:39:33.77140779
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 kernel/syscall.c:
@@ -1484,12 +1513,6 @@ user/_ln:
 #  File has not been updated.
 
 # Not a target:
-user/cowtest.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 user/usertests.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -1516,7 +1539,7 @@ user/ulib.c:
 # Not a target:
 user/sh.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.91685391
+#  Last modified 2022-12-14 16:39:32.881407785
 #  File has been updated.
 #  Successfully updated.
 
@@ -1535,7 +1558,7 @@ kernel/sleeplock.c:
 # Not a target:
 user/mkdir.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:14.676853909
+#  Last modified 2022-12-14 16:39:32.671407784
 #  File has been updated.
 #  Successfully updated.
 
@@ -1547,7 +1570,7 @@ user/mkdir.d:
 # Not a target:
 kernel/console.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:12.376853896
+#  Last modified 2022-12-14 16:39:31.211407776
 #  File has been updated.
 #  Successfully updated.
 
@@ -1641,14 +1664,14 @@ kernel/sysproc.c:
 # Not a target:
 kernel/main.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:11.026853889
+#  Last modified 2022-12-14 16:39:29.951407769
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 user/wc.d:
 #  Implicit rule search has been done.
-#  Last modified 2022-12-11 19:57:15.806853915
+#  Last modified 2022-12-14 16:39:33.631407789
 #  File has been updated.
 #  Successfully updated.
 
@@ -1674,19 +1697,19 @@ kernel/file.o: kernel/file.c kernel/types.h kernel/riscv.h kernel/defs.h kernel/
 # Load=1/32=3%, Rehash=0, Collisions=0/3=0%
 
 # files hash-table stats:
-# Load=206/1024=20%, Rehash=0, Collisions=70/723=10%
+# Load=209/1024=20%, Rehash=0, Collisions=71/740=10%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 461 / storage = 4950 B / avg = 10 B
-# current buf: size = 8162 B / used = 4950 B / count = 461 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 472 / storage = 5114 B / avg = 10 B
+# current buf: size = 8162 B / used = 5114 B / count = 472 / avg = 10 B
 
-# strcache performance: lookups = 938 / hit rate = 50%
+# strcache performance: lookups = 962 / hit rate = 50%
 # hash-table stats:
-# Load=461/8192=6%, Rehash=0, Collisions=23/938=2%
-# Finished Make data base on Wed Dec 14 16:14:37 2022
+# Load=472/8192=6%, Rehash=0, Collisions=34/962=4%
+# Finished Make data base on Wed Dec 14 16:42:17 2022
 
  
