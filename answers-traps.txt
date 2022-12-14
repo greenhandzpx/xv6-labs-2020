@@ -1,1 +1,6 @@
-- 
+a2
+pc=26
+64c
+38
+He110 World
+a random value, because the a2 register's value is random
