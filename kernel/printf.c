@@ -140,6 +140,7 @@ backtrace(void)
   printf("backtrace:\n");
   uint64 fp = r_fp();
   while (1) { 
+    // printf("fp %p\n", fp);
     if (PGROUNDDOWN(fp) == fp) {
       break;
     }
